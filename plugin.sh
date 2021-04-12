@@ -25,6 +25,12 @@ if [ "${PLUGIN_JSON_KEY:-}" ];then
     export GOOGLE_APPLICATION_CREDENTIALS=/kaniko/gcr.json
 fi
 
+if [[ "${PLUGIN_ECR_LOGIN:-}" == "true" ]]; then
+    cat > /kaniko/.docker/config.json <<DOCKERJSON
+{ "credsStore": "ecr-login" }
+DOCKERJSON
+
+
 DOCKERFILE=${PLUGIN_DOCKERFILE:-Dockerfile}
 CONTEXT=${PLUGIN_CONTEXT:-$PWD}
 LOG=${PLUGIN_LOG:-info}

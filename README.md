@@ -44,6 +44,23 @@ steps:
       from_secret: google-application-credentials
 ```
 
+Pushing to AWS ECR:
+
+```yaml
+kind: pipeline
+name: default
+
+steps:
+- name: publish
+  image: banzaicloud/drone-kaniko
+  settings:
+    registry: my_id.dkr.ecr.eu-west-1.amazonaws.com
+    repo: my-repo-name
+    tags: ${DRONE_COMMIT_SHA}
+    cache: true
+    ecr_login: true
+```
+
 ## Use `.tags` file for tagging
 
 Similarily to official
