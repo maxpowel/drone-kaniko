@@ -26,10 +26,11 @@ if [ "${PLUGIN_JSON_KEY:-}" ];then
 fi
 
 if [[ "${PLUGIN_ECR_LOGIN:-}" == "true" ]]; then
+    echo "AWS ECR Login"
     cat > /kaniko/.docker/config.json <<DOCKERJSON
 { "credsStore": "ecr-login" }
 DOCKERJSON
-
+fi
 
 DOCKERFILE=${PLUGIN_DOCKERFILE:-Dockerfile}
 CONTEXT=${PLUGIN_CONTEXT:-$PWD}
